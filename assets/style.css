@@ -1,0 +1,17 @@
+body {
+	
+	font-family: "Arial Black", Gadget, sans-serif ;
+}
+
+.jumbotron{
+	background-color: rgb(142, 184, 211);
+}
+
+.panel-body {
+	background-color: grey;
+	color: white;
+}
+
+.panel-heading{
+	color: rgb(142, 184, 211);
+}

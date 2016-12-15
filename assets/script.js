@@ -1,5 +1,10 @@
 console.log(6+5);
 
+setTimeout(function(){
+    location = ''
+  },60000)
+
+
 var config = {
     apiKey: "AIzaSyC4cwJ8FAZfErvPai7pcN0Kr8B6GlirJkw",
     authDomain: "paintrainstation-e2a0a.firebaseapp.com",
@@ -12,50 +17,61 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 
-var name = "";
-var role = "";
-var startDate = "";
-var rate = 0;
-
-// Capture Button Click
-$("#add-user").on("click", function() {
+var trainName;
+  var destination;
+  var startTime;
+  var frequency;
 
 
-
-    name = $("#name-input").val().trim();
-    role = $("#role-input").val().trim();
-    startDate = $("#startDate-input").val().trim();
-    rate = $("#rate-input").val().trim();
-
-    database.ref().push({
-        name: name,
-        role: role,
-        startDate: startDate,
-        rate: rate
-    });
+  $("#submit").on("click", function(event) {
 
 
-    // console.log(name);
-    // console.log(role);
-    // console.log(startDate);
-    // console.log(rate);
+      trainName = $("#name-input").val().trim();
+      destination = $("#destination-input").val().trim();
+      startTime = $("#startTime-input").val().trim();
+      frequency = $("#frequency-input").val().trim();
 
-
-    database.ref().on("child_added", function(childSnapshot) {
-
-        //childSnapshot.val(); //This is the data
-
-        $(".employeeInfo").append("<td>" + childSnapshot.val().name);
-        $(".employeeInfo").append("<td>" + childSnapshot.val().role);
-        $(".employeeInfo").append("<td>" + childSnapshot.val().startDate);
-        $(".employeeInfo").append("<td>" + childSnapshot.val().rate);
-
-
-        //console.log("here");
-    });
+      console.log(frequency);
+      database.ref().push({
+          trainName: trainName,
+          destination: destination,
+          startTime: startTime,
+          frequency: frequency
+      });
+      return false;
+  });
 
 
 
-    // Don't refresh the page!
-    return false;
-});
+
+  database.ref().on("child_added", function(snap) {
+      var startTime = snap.val().startTime;
+      var convertedTime = moment(startTime, "HH:mm");
+      convertedTime.format("HHmm");
+      console.log("user entered: " + convertedTime.format("HHmm"));
+      //Difference from start time until now in minutes
+      var currentTime = moment().format("HH:mm");
+      console.log("Current time = " + currentTime);
+      var timeFromStart = moment().diff(convertedTime, "minutes");
+      var minTillNext = (timeFromStart % snap.val().frequency);
+      console.log(minTillNext.toString());
+      console.log("Minutes until Next Train: " + minTillNext);
+      // console.log("Calc test: " + (currentTime) + minTillNext);
+
+      //minutes time till next
+
+      var nextArrival = moment().add(minTillNext, 'minutes').format("HH:mm");
+      // var nextArrival = currentTime;
+      console.log("testing time " + nextArrival);
+      console.log(nextArrival);
+      // console.log(nextArrival);
+      // moment().add(Duration);
+
+      var newRow = $("<tr>");
+      newRow.append($("<td>" + snap.val().trainName + "</td>"));
+      newRow.append($("<td>" + snap.val().destination + "</td>"));
+      newRow.append($("<td>" + snap.val().frequency + "</td>"));
+      newRow.append($("<td>" + nextArrival + "</td>"));
+      newRow.append($("<td>" + minTillNext + "</td>"));
+      $("tbody").append(newRow);
+  });

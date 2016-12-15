@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Pain Train Sation</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="employeeInfo">
+                        <tr class="trainInfo">
                             <!-- <td class="employeeName"></td>
                         <td class="role"></td>
                         <td class="startDate"></td>
@@ -48,28 +49,28 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Add Employee</h3>
+                    <h3 class="panel-title">Bring the Pain by Adding a Train</h3>
                 </div>
                 <div class="panel-body">
                     <!-- Sign-up Form (note the various input "types")-->
                     <form role="form">
                         <div class="form-group">
-                            <label for="name-input">Employee Name:</label>
+                            <label for="name-input">Train Name:</label>
                             <input class="form-control" id="name-input" type="text">
                         </div>
                         <div class="form-group">
-                            <label for="role-input">Role:</label>
-                            <input class="form-control" id="role-input" type="text">
+                            <label for="role-input">Destination:</label>
+                            <input class="form-control" id="destination-input" type="text">
                         </div>
                         <div class="form-group">
-                            <label for="startDate-input">Start Date (DD/MM/YY - ex: 01/01/89:)</label>
-                            <input class="form-control" id="startDate-input" type="text">
+                            <label for="startDate-input">First Train Time (HH:mm military time)</label>
+                            <input class="form-control" id="startTime-input" type="text">
                         </div>
                         <div class="form-group">
-                            <label for="rate-input">Monthly Rate:</label>
-                            <textarea class="form-control" id="rate-input" rows="1"></textarea>
+                            <label for="frequency-input">Frequency:</label>
+                            <textarea class="form-control" id="frequency-input" rows="1"></textarea>
                         </div>
-                        <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+                        <button class="btn btn-default" id="submit" type="submit">Submit</button>
                     </form>
                 </div>
             </div>
